@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
+
     <TextView
         android:id="@+id/txtTitulo"
         android:layout_width="match_parent"
@@ -42,57 +43,52 @@
 
     <ImageView
         android:id="@+id/image_view"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_width="387dp"
+        android:layout_height="419dp"
         android:layout_margin="10dp"
         app:layout_constraintBottom_toTopOf="@+id/txtresults"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btGallery"
-        app:srcCompat="@drawable/img"
-        tools:layout_editor_absoluteX="10dp" />
+        app:layout_constraintVertical_bias="0.129"
+        app:srcCompat="@drawable/img" />
 
     <TextView
         android:id="@+id/txtresults"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_width="385dp"
+        android:layout_height="116dp"
         android:layout_margin="10dp"
+        android:layout_marginEnd="12dp"
+        android:gravity="start"
         android:inputType="textMultiLine"
         android:scrollbars="vertical"
         android:text="Resultados:"
         app:layout_constraintBottom_toTopOf="@id/btText"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.985"
-        tools:layout_editor_absoluteX="10dp" />
+        app:layout_constraintVertical_bias="0.983" />
 
     <Button
         android:id="@+id/btText"
-        android:text="OCR"
+        android:layout_width="168dp"
+        android:layout_height="49dp"
         android:layout_margin="10dp"
-        android:layout_width="0dp"
-        android:layout_height="55dp"
-        android:onClick="OCRfx"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/btFace"
-        app:layout_constraintBottom_toBottomOf="parent"/>
-
-    <Button
-        android:id="@+id/btFace"
-        android:layout_margin="10dp"
-        android:layout_width="0dp"
-        android:layout_height="55dp"
-        android:onClick="Rostrosfx"
-        android:text="Rostros"
+        android:layout_marginLeft="8dp"
+        android:layout_marginBottom="8dp"
+        android:onClick="PersonalizedModel2"
+        android:text="DETALLADO"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toLeftOf="@+id/btPersonalizado"
-        app:layout_constraintLeft_toRightOf="@id/btText" />
+        app:layout_constraintLeft_toLeftOf="parent" />
 
     <Button
         android:id="@+id/btPersonalizado"
+        android:layout_width="191dp"
+        android:layout_height="49dp"
         android:layout_margin="10dp"
-        android:layout_width="0dp"
-        android:layout_height="55dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginBottom="8dp"
         android:onClick="PersonalizedModel"
-        android:text="Modelo"
+        android:text="ESPECIFICO"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toRightOf="@id/btFace" />
+        app:layout_constraintRight_toRightOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
