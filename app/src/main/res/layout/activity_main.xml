@@ -58,29 +58,33 @@
 
     <ImageView
         android:id="@+id/image_view"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="387dp"
+        android:layout_height="466dp"
         android:layout_margin="10dp"
         app:layout_constraintBottom_toTopOf="@+id/txtresults"
         app:layout_constraintDimensionRatio="H,4:5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btGallery"
-        app:srcCompat="@drawable/fondo2"
-        />
+        app:srcCompat="@drawable/fondo2" />
 
-    <TextView
-        android:id="@+id/txtresults"
-        android:layout_width="396dp"
-        android:layout_height="170dp"
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:gravity="start"
-        android:inputType="textMultiLine"
-        android:text="Resultados:"
-        android:textColor="#F8F8F8"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/image_view" />
+        app:layout_constraintTop_toBottomOf="@id/image_view">
+
+        <TextView
+            android:id="@+id/txtresults"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:inputType="textMultiLine"
+            android:text="Resultados:"
+            android:textColor="#F8F8F8" />
+    </ScrollView>
 
     <Button
         android:id="@+id/btText"

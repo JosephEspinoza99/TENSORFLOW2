@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.tensorflow2.ml.EXAMEN;
 import com.example.tensorflow2.ml.Exam;
 import com.example.tensorflow2.ml.Flowers;
 
@@ -48,6 +49,8 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 public class MainActivity
@@ -178,13 +181,13 @@ public class MainActivity
         try {
 
             //Definir Estiquetas de acuerdo a su archivo "labels.txt" generado por la Plataforma de creación del Modelo
-            String[] etiquetas = {"LABORATORIO INDUSTRIAL","POLIDEPORTIVO","CENTRO MEDICO"};
+            String[] etiquetas = {"LABORATORIO INDUSTRIAL","CENTRO MEDICO","POLIDEPORTIVO","BIBLIOTECA","FACULTAD CAYF","PARQUEADERO","FACULTAD FCI","LABORATORIO ACUICULTURA","COMEDOR","FACULTAD FCIP","LABORATORIO AGROINDUSTRIAL","BAÑOS"};
 
-            Exam model = Exam.newInstance(getApplicationContext());
+            EXAMEN model = EXAMEN.newInstance(getApplicationContext());
             TensorBuffer inputFeature0 = TensorBuffer.createFixedSize(new int[]{1, 224, 224, 3}, DataType.FLOAT32);
             inputFeature0.loadBuffer(convertirImagenATensorBuffer(mSelectedImage));
 
-            Exam.Outputs outputs = model.process(inputFeature0);
+            EXAMEN.Outputs outputs = model.process(inputFeature0);
             TensorBuffer outputFeature0 = outputs.getOutputFeature0AsTensorBuffer();
 
             txtResults.setText(obtenerEtiquetayProbabilidad(etiquetas, outputFeature0.getFloatArray()));
@@ -195,26 +198,53 @@ public class MainActivity
         }
     }
     public String obtenerEtiquetayProbabilidad2(String[] etiquetas, float[] probabilidades) {
+        // Crear una matriz de pares (etiqueta, probabilidad) para ordenar
+        Pair[] pairs = new Pair[etiquetas.length];
+        for (int i = 0; i < etiquetas.length; i++) {
+            pairs[i] = new Pair(etiquetas[i], probabilidades[i]);
+        }
+
+        // Ordenar la matriz en orden descendente según las probabilidades
+        Arrays.sort(pairs, new Comparator<Pair>() {
+            @Override
+            public int compare(Pair pair1, Pair pair2) {
+                // Compara las probabilidades en orden descendente
+                return Float.compare(pair2.probabilidad, pair1.probabilidad);
+            }
+        });
+
+        // Construir la cadena de resultado ordenada
         StringBuilder resultado = new StringBuilder();
 
-        for (int i = 0; i < etiquetas.length; i++) {
-            resultado.append(etiquetas[i]).append(": ").append(probabilidades[i] * 100).append("%\n");
+        for (Pair pair : pairs) {
+            resultado.append(pair.etiqueta).append(": ").append(pair.probabilidad * 100).append("%\n");
         }
 
         return resultado.toString();
+    }
+
+    // Clase auxiliar para representar un par (etiqueta, probabilidad)
+    class Pair {
+        String etiqueta;
+        float probabilidad;
+
+        public Pair(String etiqueta, float probabilidad) {
+            this.etiqueta = etiqueta;
+            this.probabilidad = probabilidad;
+        }
     }
 
     public void PersonalizedModel2(View v){
         try {
 
             //Definir Estiquetas de acuerdo a su archivo "labels.txt" generado por la Plataforma de creación del Modelo
-            String[] etiquetas = {"LABORATORIO INDUSTRIAL","POLIDEPORTIVO","CENTRO MEDICO"};
+            String[] etiquetas = {"LABORATORIO INDUSTRIAL","CENTRO MEDICO","POLIDEPORTIVO","BIBLIOTECA","FACULTAD CAYF","PARQUEADERO","FACULTAD FCI","LABORATORIO ACUICULTURA","COMEDOR","FACULTAD FCIP","LABORATORIO AGROINDUSTRIAL","BAÑOS"};
 
-            Exam model = Exam.newInstance(getApplicationContext());
+            EXAMEN model = EXAMEN.newInstance(getApplicationContext());
             TensorBuffer inputFeature0 = TensorBuffer.createFixedSize(new int[]{1, 224, 224, 3}, DataType.FLOAT32);
             inputFeature0.loadBuffer(convertirImagenATensorBuffer(mSelectedImage));
 
-            Exam.Outputs outputs = model.process(inputFeature0);
+            EXAMEN.Outputs outputs = model.process(inputFeature0);
             TensorBuffer outputFeature0 = outputs.getOutputFeature0AsTensorBuffer();
 
             txtResults.setText(obtenerEtiquetayProbabilidad2(etiquetas, outputFeature0.getFloatArray()));
